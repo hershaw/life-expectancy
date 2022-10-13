@@ -84,4 +84,5 @@ def clean_data(region = 'PT') -> None:
 
 if __name__ == "__main__":  # pragma: no cover
     REGION = PARSER.parse_args()
+
     clean_data(REGION.region)
