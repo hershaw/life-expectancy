@@ -9,7 +9,7 @@ import pandas as pd
 
 def load_datafile() -> pd.DataFrame:
     #filepath = 'life_expectancy/data/eu_life_expectancy_raw.tsv'
-    filepath = 'data/eu_life_expectancy_raw.tsv'
+    filepath = 'life_expectancy/data/eu_life_expectancy_raw.tsv'
     return pd.read_csv(filepath, sep='\t')
 
 def rearrange_columns(df_life_expectancy: pd.DataFrame) -> None:
@@ -52,7 +52,7 @@ def filter_region(df_unpivoted: pd.DataFrame) -> pd.DataFrame:
 def save_dataframe_as_csv(df_unpivoted: pd.DataFrame) -> None:
     """ Set the prefix of filename with region and saves the dataframe as CVS"""
 
-    filepath = 'data/' + 'pt' + '_life_expectancy.csv'
+    filepath = 'life_expectancy/data/' + 'pt' + '_life_expectancy.csv'
     df_unpivoted.to_csv(filepath, index = False)
 
 
