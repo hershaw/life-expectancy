@@ -8,6 +8,11 @@ Assignment 1 of academy NOS foundations
 import argparse
 import pandas as pd
 
+
+PARSER = argparse.ArgumentParser()
+PARSER.add_argument("region", help="Choose the region in ISO format (default='PT')", type = str)
+
+
 def load_datafile() -> pd.DataFrame:
     #filepath = 'life_expectancy/data/eu_life_expectancy_raw.tsv'
     filepath = 'life_expectancy/data/eu_life_expectancy_raw.tsv'
@@ -78,8 +83,6 @@ def clean_data(region = 'PT') -> None:
     save_dataframe_as_csv(df_unpivoted, region)
 
 if __name__ == "__main__":  # pragma: no cover
-    PARSER = argparse.ArgumentParser()
-    PARSER.add_argument("region", help="Choose the region in ISO format (default='PT')", type = str)
     REGION = PARSER.parse_args()
-    
+
     clean_data(REGION.region)
