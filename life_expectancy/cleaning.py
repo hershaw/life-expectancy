@@ -56,10 +56,6 @@ def save_dataframe_as_csv(df_unpivoted: pd.DataFrame, region: str) -> None:
     filepath = 'life_expectancy/data/' + region.lower() + '_life_expectancy.csv'
     df_unpivoted.to_csv(filepath, index = False)
 
-PARSER = argparse.ArgumentParser()
-PARSER.add_argument("region", help="Choose the region in ISO format (default='PT')", type = str)
-REGION = PARSER.parse_args()
-
 def clean_data(region = 'PT') -> None:
     """Cleaning of life expectancy file"""
 
@@ -82,4 +78,8 @@ def clean_data(region = 'PT') -> None:
     save_dataframe_as_csv(df_unpivoted, region)
 
 if __name__ == "__main__":  # pragma: no cover
+    PARSER = argparse.ArgumentParser()
+    PARSER.add_argument("region", help="Choose the region in ISO format (default='PT')", type = str)
+    REGION = PARSER.parse_args()
+    
     clean_data(REGION.region)
