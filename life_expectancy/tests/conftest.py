@@ -4,6 +4,8 @@ import pytest
 
 from . import FIXTURES_DIR, OUTPUT_DIR
 
+def pytest_addoption(parser):
+    parser.addoption("--region", action="store", default="PT")
 
 @pytest.fixture(autouse=True)
 def run_before_and_after_tests() -> None:
