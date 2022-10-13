@@ -4,7 +4,8 @@ Assignment 1 of academy NOS foundations
 
 # pylint: disable=missing-function-docstring
 
-# import pandas libraries
+# import argparse and pandas libraries
+import argparse
 import pandas as pd
 
 def load_datafile() -> pd.DataFrame:
@@ -46,17 +47,20 @@ def remove_letters_from_value_column(df_unpivoted: pd.DataFrame) -> None:
 def change_value_dtype_to_float(df_unpivoted: pd.DataFrame) -> None:
     df_unpivoted['value'] = df_unpivoted['value'].astype(float)
 
-def filter_region(df_unpivoted: pd.DataFrame) -> pd.DataFrame:
-    return df_unpivoted[df_unpivoted.region == 'PT']
+def filter_region(df_unpivoted: pd.DataFrame, region: str) -> pd.DataFrame:
+    return df_unpivoted[df_unpivoted.region == region]
 
-def save_dataframe_as_csv(df_unpivoted: pd.DataFrame) -> None:
+def save_dataframe_as_csv(df_unpivoted: pd.DataFrame, region: str) -> None:
     """ Set the prefix of filename with region and saves the dataframe as CVS"""
 
-    filepath = 'life_expectancy/data/' + 'pt' + '_life_expectancy.csv'
+    filepath = 'life_expectancy/data/' + region.lower() + '_life_expectancy.csv'
     df_unpivoted.to_csv(filepath, index = False)
 
+PARSER = argparse.ArgumentParser()
+PARSER.add_argument("region", help="Choose the region in ISO format (default='PT')", type = str)
+REGION = PARSER.parse_args()
 
-def clean_data() -> None:
+def clean_data(region = 'PT') -> None:
     """Cleaning of life expectancy file"""
 
     df_life_expectancy = load_datafile()
@@ -73,9 +77,9 @@ def clean_data() -> None:
 
     change_value_dtype_to_float(df_unpivoted)
 
-    df_unpivoted = filter_region(df_unpivoted)
+    df_unpivoted = filter_region(df_unpivoted, region)
 
-    save_dataframe_as_csv(df_unpivoted)
+    save_dataframe_as_csv(df_unpivoted, region)
 
 if __name__ == "__main__":  # pragma: no cover
-    clean_data()
+    clean_data(REGION.region)
